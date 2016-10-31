@@ -4,6 +4,10 @@ import pandas as pd
 from nltk.corpus import names
 
 class GenderClassifier(object):
+    """
+    Wrapper class for the NaiveBayesClassifier nltk method.
+    Code adapted from Natural Language Processing with Python Chapter 6
+    """
 
     def __init__(self, names):
         self.test_names = None
@@ -62,16 +66,17 @@ class GenderClassifier(object):
                 errors.append((correct, guess, name))
         return pd.DataFrame(errors,columns=['correct', 'guess', 'names'])
 
-    def report_dev_accuracy(self):
+    def report_test_accuracy(self):
         # reports accuracy on the test set
         return nltk.classify.accuracy(self.classifier,self.test_set)
 
-    def report_test_accuracy(self):
+    def report_dev_accuracy(self):
         # reports accuracy on the test dev set.. useful for fine tuning
-        return nltk.classify.accuracy(self.classifer,self.testdev_set)
+        return nltk.classify.accuracy(self.classifier,self.testdev_set)
 
 
 if __name__ == '__main__':
+    #test script
     g = GenderClassifier(names)
     print g.test_names[0:5]
     print g.train_names[0:5]
